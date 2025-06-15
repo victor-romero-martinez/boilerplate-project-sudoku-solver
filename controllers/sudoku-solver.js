@@ -41,11 +41,12 @@ class SudokuSolver {
   checkColPlacement(puzzleString, row, column, value) {
     const isNotValid = this.validate(puzzleString)
     if (isNotValid.error) return isNotValid 
-
+    
+    const fixColumn = Number(column) - 1
     const puzzleColumn = []
 
     for (let i = 0; i < BOARD_SIZE; i++) {
-      const idx = i * BOARD_SIZE + Number(column)
+      const idx = i * BOARD_SIZE + fixColumn
       puzzleColumn.push(puzzleString[idx])
     }
 
@@ -66,7 +67,7 @@ class SudokuSolver {
     const REGION_SIZE = BOARD_SIZE / 3
     const fixRow = typeof (row) === 'number' ? row : ROW.indexOf(row.toLocaleLowerCase())
     const regionRow = Math.floor(fixRow / REGION_SIZE)
-    const regionCol = Math.floor(Number(column) / REGION_SIZE)
+    const regionCol = Math.floor((Number(column) - 1) / REGION_SIZE)
     const regionStartRow = regionRow * REGION_SIZE
     const regionStartCol = regionCol * REGION_SIZE
 
@@ -125,7 +126,7 @@ class SudokuSolver {
       if (emptyIdx === -1) return true
 
       const row = Math.floor(emptyIdx / BOARD_SIZE)
-      const col = emptyIdx % BOARD_SIZE
+      const col = emptyIdx % BOARD_SIZE + 1
 
       for (let num = 1; num <= BOARD_SIZE; num++) {
         const value = num.toString()
