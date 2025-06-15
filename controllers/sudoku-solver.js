@@ -8,19 +8,24 @@ class SudokuSolver {
   /** @param {string} puzzleString */
   validate(puzzleString) {
     const regex = /[^1-9.]/g
+
+    if (typeof (puzzleString) !== 'string') return { 'error': 'Expected puzzle should be a string' }
     if (puzzleString.length !== BOARD_SIZE * BOARD_SIZE) return { "error": "Expected puzzle to be 81 characters long" }
     if (regex.test(puzzleString)) return { "error": "Invalid characters in puzzle" }
 
-    return null
+    return { valid: true }
   }
 
   /**
    * @param {string} puzzleString 
-   * @param {string | number} row 
-   * @param {string | number} column 
+   * @param {string | number} row Sould be a word `e.g. a`
+   * @param {string | number} column Should be a number `e.g 1`
    * @param {string} value 
    */
   checkRowPlacement(puzzleString, row, column, value) {
+    const isNotValid = this.validate(puzzleString)
+    if (isNotValid.error) return isNotValid 
+
     const rowStart = (typeof (row) === 'number' ? row : ROW.indexOf(row.toLowerCase())) * BOARD_SIZE
     const rowEnd = rowStart + BOARD_SIZE
     const puzzleRow = puzzleString.slice(rowStart, rowEnd)
@@ -29,11 +34,14 @@ class SudokuSolver {
 
   /**
    * @param {string} puzzleString 
-   * @param {string | number} row 
-   * @param {string | number} column 
+   * @param {string | number} row Sould be a word `e.g. a`
+   * @param {string | number} column Should be a number `e.g 1`
    * @param {string} value 
    */
   checkColPlacement(puzzleString, row, column, value) {
+    const isNotValid = this.validate(puzzleString)
+    if (isNotValid.error) return isNotValid 
+
     const puzzleColumn = []
 
     for (let i = 0; i < BOARD_SIZE; i++) {
@@ -41,17 +49,20 @@ class SudokuSolver {
       puzzleColumn.push(puzzleString[idx])
     }
 
-
+    // console.log(puzzleColumn, row, column)
     return puzzleColumn.includes(value) ? { "valid": false, "conflict": "column" } : { valid: true }
   }
 
   /**
    * @param {string} puzzleString 
-   * @param {string | number} row 
-   * @param {string | number} column 
+   * @param {string | number} row Sould be a word `e.g. a`
+   * @param {string | number} column Should be a number `e.g 1`
    * @param {string} value 
    */
   checkRegionPlacement(puzzleString, row, column, value) {
+    const isNotValid = this.validate(puzzleString)
+    if (isNotValid.error) return isNotValid 
+
     const REGION_SIZE = BOARD_SIZE / 3
     const fixRow = typeof (row) === 'number' ? row : ROW.indexOf(row.toLocaleLowerCase())
     const regionRow = Math.floor(fixRow / REGION_SIZE)
@@ -74,19 +85,20 @@ class SudokuSolver {
   /**
    * 
    * @param {string} puzzleString 
-   * @param {string | number} row 
-   * @param {string | number} column 
+   * @param {string | number} row Sould be a word `e.g. a`
+   * @param {string | number} column Should be a number `e.g 1`
    * @param {string} value 
    * @returns 
    */
   check(puzzleString, row, column, value) {
     const isNotValid = this.validate(puzzleString)
-    if (isNotValid) return isNotValid
+
+    if (isNotValid.error) return isNotValid
     if (/[^a-zA-Z]/.test(String(row)) || /[^1-9]/.test(String(column))) return { "error": "Invalid coordinate" }
     if (/[^1-9]/.test(value)) return { "error": "Invalid value" }
-
+    
     const rowResult = this.checkRowPlacement(puzzleString, row, column, value)
-    const colResult = this.checkColPlacement(puzzleString, row, Number(column) - 1, value)
+    const colResult = this.checkColPlacement(puzzleString, row, column, value)
     const regionResult = this.checkRegionPlacement(puzzleString, row, column, value)
 
     let conflicts = []
@@ -104,7 +116,7 @@ class SudokuSolver {
    */
   solve(puzzleString) {
     const isNotValid = this.validate(puzzleString)
-    if (isNotValid) return isNotValid
+    if (isNotValid.error) return isNotValid
 
     const board = puzzleString.split('')
 
