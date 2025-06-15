@@ -115,7 +115,7 @@ class SudokuSolver {
       const row = Math.floor(emptyIdx / BOARD_SIZE)
       const col = emptyIdx % BOARD_SIZE
 
-      for (let num = 1; num <= 9; num++) {
+      for (let num = 1; num <= BOARD_SIZE; num++) {
         const value = num.toString()
         const newBoard = board.join('')
 

@@ -24,7 +24,6 @@ module.exports = function (app) {
       if (!puzzle) return res.json({ "error": "Required field missing" })
 
       const result = solver.solve(puzzle)
-      console.log(result)
       res.json(result)
     });
 };
