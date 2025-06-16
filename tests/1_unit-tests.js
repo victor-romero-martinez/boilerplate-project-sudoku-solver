@@ -9,7 +9,7 @@ let solver = new Solver();
 suite('Unit Tests', () => {
     test('Logic handles a valid puzzle string of 81 characters', function () {
         const result = solver.validate(puzzlesAndSolutions[0][0])
-        assert.property(result, 'valid', 'Sould be have a valid property')
+        assert.property(result, 'valid', 'Should have a valid property')
         assert.isBoolean(result.valid, 'Should be boolean')
         assert.isTrue(result.valid, 'Should be true')
     })
@@ -28,16 +28,16 @@ suite('Unit Tests', () => {
 
     test('Logic handles a valid row placement', function () {
         const result = solver.checkRowPlacement(puzzlesAndSolutions[0][0], 'a', '2', '3')
-        assert.property(result, 'valid', 'Sould be have a valid property')
+        assert.property(result, 'valid', 'Should have a valid property')
         assert.isBoolean(result.valid, 'Should be boolean')
         assert.isTrue(result.valid, 'Should be true')
     })
 
     test('Logic handles an invalid row placement', function () {
         const result = solver.checkRowPlacement(puzzlesAndSolutions[0][0], 'a', '2', '5')
-        assert.property(result, 'valid', 'Sould be have a valid property')
+        assert.property(result, 'valid', 'Should have a valid property')
         assert.isBoolean(result.valid, 'Should be boolean')
-        assert.isNotTrue(result.valid, 'Should be false')
+        assert.isFalse(result.valid, 'Should be false')
         assert.property(result, 'conflict', 'Should be a conflict error message')
         assert.include(result.conflict, 'row', 'Shoul be include row in the confilct array')
     })
@@ -53,7 +53,7 @@ suite('Unit Tests', () => {
         const result = solver.checkColPlacement(puzzlesAndSolutions[0][0], 'c', '1', '2')
         assert.property(result, 'valid', 'Should be exists a property valid')
         assert.isBoolean(result.valid, 'Should be a boolean type')
-        assert.isNotTrue(result.conflict, 'Should be false')
+        assert.isFalse(result.valid, 'Should be false')
         assert.property(result, 'conflict', 'Should be a conflict property')
         assert.include(result.conflict, 'column', 'Should be include column in the conflict array')
     })
@@ -69,7 +69,7 @@ suite('Unit Tests', () => {
         const result = solver.checkRegionPlacement(puzzlesAndSolutions[0][0], 'b', '2', '2')
         assert.property(result, 'valid', 'Should be exists a property valid')
         assert.isBoolean(result.valid, 'Should be a boolean type')
-        assert.isNotTrue(result.conflict, 'Should be false')
+        assert.isFalse(result.valid, 'Should be false')
         assert.property(result, 'conflict', 'Should be a conflict property')
         assert.include(result.conflict, 'region', 'Should be include column in the region array')
     })
