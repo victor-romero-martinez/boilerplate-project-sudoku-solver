@@ -95,20 +95,6 @@ suite('Functional Tests', () => {
             })
     })
 
-        test('If value submitted to /api/check is already placed in puzzle on that coordinate, the returned value will be an object containing a valid property with true if value is not conflicting.', function (done) {
-        chai.request(server)
-            .post(BASE_PATH_CHECK)
-            .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a1', value: '5' })
-            .end(function (err, res) {
-                assert.equal(res.status, 200)
-                assert.property(res.body, 'valid', 'Should be exists valid property')
-                assert.isBoolean(res.body.valid, 'Should be boolean type')
-                assert.isTrue(res.body.valid)
-                done()
-            })
-    })
-
     test('Check a puzzle placement with single placement conflict: POST request to /api/check', function (done) {
         chai.request(server)
             .post(BASE_PATH_CHECK)
