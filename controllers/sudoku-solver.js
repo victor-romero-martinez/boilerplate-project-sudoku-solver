@@ -9,7 +9,7 @@ class SudokuSolver {
   validate(puzzleString) {
     const regex = /[^1-9.]/g
 
-    if (!puzzleString) return { "error": "Required field(s) missing" }
+    if (!puzzleString) return { "error": "Required field missing" }
     if (typeof (puzzleString) !== 'string') return { 'error': 'Expected puzzle should be a string' }
     if (puzzleString.length !== BOARD_SIZE * BOARD_SIZE) return { "error": "Expected puzzle to be 81 characters long" }
     if (regex.test(puzzleString)) return { "error": "Invalid characters in puzzle" }
@@ -91,7 +91,7 @@ class SudokuSolver {
    * @returns 
    */
   check(puzzleString, coordinate, value) {
-    if (!coordinate || !value) return { "error": "Required field(s) missing" }
+    if (!coordinate || !value) return { "error": "Required field missing" }
 
     const isNotValid = this.validate(puzzleString)
     const [row, column] = coordinate
