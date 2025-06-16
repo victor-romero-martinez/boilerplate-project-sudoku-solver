@@ -13,7 +13,7 @@ suite('Functional Tests', () => {
     test('Solve a puzzle with valid puzzle string: POST request to /api/solve', function (done) {
         chai.request(server)
             .post(BASE_PATH_SOLVE)
-            .set('Contente-Type', 'application/json')
+            .set('Content-Type', 'application/json')
             .send({ puzzle: puzzlesAndSolutions[1][0] })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
@@ -24,7 +24,7 @@ suite('Functional Tests', () => {
             })
     })
 
-    test('Solve a puzzle with valid puzzle string: POST request to /api/solve', function (done) {
+    test('Solve a puzzle with missing puzzle string: POST request to /api/solve', function (done) {
         chai.request(server)
             .post(BASE_PATH_SOLVE)
             .set('Content-Type', 'application/json')
@@ -122,7 +122,7 @@ suite('Functional Tests', () => {
                 assert.isBoolean(res.body.valid, 'Should be boolean type')
                 assert.isFalse(res.body.valid)
                 assert.property(res.body, 'conflict', 'Should be exists conflict property')
-                assert.isAtMost(res.body.conflict.length, 2, "Should be have almost two conflicts")
+                assert.sameMembers(res.body.conflict, ['row', 'region']) 
                 done()
             })
     })
