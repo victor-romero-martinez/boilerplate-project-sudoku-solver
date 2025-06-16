@@ -186,7 +186,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: '..9..5.1.85.4....2432......1...69.83.', coordinate: 'a22', value: '1' })
+            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a22', value: '1' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'error', 'Should be exists error property')
