@@ -10,13 +10,13 @@ module.exports = function (app) {
     .post((req, res) => {
       const { puzzle, coordinate, value } = req.body
       const result = solver.check(puzzle, coordinate, value)
-      res.json(result)
+      res.status(200).json(result)
     });
 
   app.route('/api/solve')
     .post((req, res) => {
       const { puzzle } = req.body
       const result = solver.solve(puzzle)
-      res.json(result)
+      res.status(200).json(result)
     });
 };

@@ -2,13 +2,12 @@ const chai = require('chai');
 const assert = chai.assert;
 
 const Solver = require('../controllers/sudoku-solver.js');
-const { puzzlesAndSolutions } = require('../controllers/puzzle-strings.js')
 
 let solver = new Solver();
 
 suite('Unit Tests', () => {
     test('Logic handles a valid puzzle string of 81 characters', function () {
-        const result = solver.validate(puzzlesAndSolutions[0][0])
+        const result = solver.validate('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.')
         assert.property(result, 'valid', 'Should have a valid property')
         assert.isBoolean(result.valid, 'Should be boolean')
         assert.isTrue(result.valid, 'Should be true')
@@ -27,14 +26,14 @@ suite('Unit Tests', () => {
     })
 
     test('Logic handles a valid row placement', function () {
-        const result = solver.checkRowPlacement(puzzlesAndSolutions[0][0], 'a', '2', '3')
+        const result = solver.checkRowPlacement('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.', 'a', '2', '3')
         assert.property(result, 'valid', 'Should have a valid property')
         assert.isBoolean(result.valid, 'Should be boolean')
         assert.isTrue(result.valid, 'Should be true')
     })
 
     test('Logic handles an invalid row placement', function () {
-        const result = solver.checkRowPlacement(puzzlesAndSolutions[0][0], 'a', '2', '5')
+        const result = solver.checkRowPlacement('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.', 'a', '2', '5')
         assert.property(result, 'valid', 'Should have a valid property')
         assert.isBoolean(result.valid, 'Should be boolean')
         assert.isFalse(result.valid, 'Should be false')
@@ -43,14 +42,14 @@ suite('Unit Tests', () => {
     })
 
     test('Logic handles a valid column placement', function () {
-        const result = solver.checkColPlacement(puzzlesAndSolutions[0][0], 'c', '1', '9')
+        const result = solver.checkColPlacement('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.', 'c', '1', '9')
         assert.property(result, 'valid', 'Shluld be exists property valid')
         assert.isBoolean(result.valid, "Should be a boolean type")
         assert.isTrue(result.valid, 'Should be a true')
     })
 
     test('Logic handles an invalid column placement', function () {
-        const result = solver.checkColPlacement(puzzlesAndSolutions[0][0], 'c', '1', '2')
+        const result = solver.checkColPlacement('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.', 'c', '1', '2')
         assert.property(result, 'valid', 'Should be exists a property valid')
         assert.isBoolean(result.valid, 'Should be a boolean type')
         assert.isFalse(result.valid, 'Should be false')
@@ -59,14 +58,14 @@ suite('Unit Tests', () => {
     })
 
     test('Logic handles a valid region (3x3 grid) placement', function () {
-        const result = solver.checkRegionPlacement(puzzlesAndSolutions[0][0], 'b', '2', '4')
+        const result = solver.checkRegionPlacement('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.', 'b', '2', '4')
         assert.property(result, 'valid', 'Shluld be exists property valid')
         assert.isBoolean(result.valid, "Should be a boolean type")
         assert.isTrue(result.valid, 'Should be a true')
     })
 
     test('Logic handles an invalid region (3x3 grid) placement', function () {
-        const result = solver.checkRegionPlacement(puzzlesAndSolutions[0][0], 'b', '2', '2')
+        const result = solver.checkRegionPlacement('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.', 'b', '2', '2')
         assert.property(result, 'valid', 'Should be exists a property valid')
         assert.isBoolean(result.valid, 'Should be a boolean type')
         assert.isFalse(result.valid, 'Should be false')
@@ -75,7 +74,7 @@ suite('Unit Tests', () => {
     })
 
     test('Valid puzzle strings pass the solver', function () {
-        const result = solver.solve(puzzlesAndSolutions[0][0])
+        const result = solver.solve('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.')
         assert.isNotNull(result, 'Shoul be not an empty result')
         assert.isObject(result, 'Shoul be an object')
     })
@@ -87,8 +86,8 @@ suite('Unit Tests', () => {
     })
 
     test('Solver returns the expected solution for an incomplete puzzle', function () {
-        const result = solver.solve(puzzlesAndSolutions[0][0])
+        const result = solver.solve('1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.')
         assert.property(result, 'solution', 'Should be the puzzle solution')
-        assert.equal(result.solution, puzzlesAndSolutions[0][1], 'Should be contains the sting solution')
+        assert.equal(result.solution, '135762984946381257728459613694517832812936745357824196473298561581673429269145378', 'Should be contains the sting solution')
     })
 });

@@ -14,12 +14,12 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_SOLVE)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0] })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'solution', 'Should be the solution in property')
                 assert.isString(res.body.solution, "Should be string type")
-                assert.equal(res.body.solution, puzzlesAndSolutions[1][1])
+                assert.equal(res.body.solution, '568913724342687519197254386685479231219538467734162895926345178473891652851726943')
                 done()
             })
     })
@@ -85,7 +85,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a2', value: '4' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a2', value: '4' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'valid', 'Should be exists valid property')
@@ -99,7 +99,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a2', value: '1' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a2', value: '1' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'valid', 'Should be exists valid property')
@@ -115,7 +115,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a2', value: '3' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a2', value: '3' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'valid', 'Should be exists valid property')
@@ -131,7 +131,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a2', value: '9' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a2', value: '9' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'valid', 'Should be exists valid property')
@@ -159,7 +159,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a2', value: 'a' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a2', value: 'a' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'error', 'Should be exists error property')
@@ -185,7 +185,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a22', value: '1' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a22', value: '1' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'error', 'Should be exists error property')
@@ -198,7 +198,7 @@ suite('Functional Tests', () => {
         chai.request(server)
             .post(BASE_PATH_CHECK)
             .set('Content-Type', 'application/json')
-            .send({ puzzle: puzzlesAndSolutions[1][0], coordinate: 'a2', value: '11' })
+            .send({ puzzle: '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3', coordinate: 'a2', value: '11' })
             .end(function (err, res) {
                 assert.equal(res.status, 200)
                 assert.property(res.body, 'error', 'Should be exists error property')
